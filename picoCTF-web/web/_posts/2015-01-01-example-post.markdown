@@ -2,6 +2,7 @@
 title:  "This is my first post!"
 date:   2015-01-01 17:29:23
 categories: ctfs awesome
+layout: post
 ---
 
 The following post was automatically produced by Jekyll:
