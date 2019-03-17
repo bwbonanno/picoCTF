@@ -8,6 +8,8 @@ web_code_dir: "{{pico_base_dir}}/picoCTF-web"
 ###
 # picoCTF-web and API configuration
 ###
+web_posts_repo:       "https://github.com/bwbonanno/post-test.git"
+web_posts_dir:        "/picoCTF-posts"
 web_build_dir:        "/picoCTF-web-build"
 web_config_dir:       "/picoCTF-web-config"
 pico_web_api_dir:     "{{ web_code_dir }}"

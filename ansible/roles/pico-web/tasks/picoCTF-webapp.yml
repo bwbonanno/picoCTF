@@ -53,3 +53,30 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
   no_log: True
+
+- name: Template update posts
+  template:
+    src: update_posts.sh.j2
+    dest: "{{ web_build_dir }}/update_posts.sh"
+    backup: yes
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  no_log: True
+
+- name: Create posts directory
+  file:
+    path: "{{ web_build_dir }}/web/_posts"
+    state: directory
+
+- name: Clone posts repo
+  git:
+    repo: "{{ web_posts_repo }}"
+    dest: "{{ web_posts_dir }}"
+    update: yes
+    version: master
+
+- name: Pull posts
+  cron:
+    name: "Submodule update"
+    minute: "*/5"
+    job: "{{ web_build_dir }}/update_posts.sh"

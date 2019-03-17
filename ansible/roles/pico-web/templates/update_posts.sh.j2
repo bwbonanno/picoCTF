@@ -1,0 +1,14 @@
+#!/bin/sh
+
+cd {{ web_posts_dir }}
+
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+BASE=$(git merge-base @ "$UPSTREAM")
+
+if [ $LOCAL = $BASE ]; then
+  git pull
+  cp {{ web_posts_dir }}/* {{ web_build_dir }}/web/_posts
+  cd {{ web_build_dir }}/web
+  jekyll build
+fi
