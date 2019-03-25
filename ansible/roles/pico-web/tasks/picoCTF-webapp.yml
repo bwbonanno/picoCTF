@@ -61,6 +61,7 @@
     backup: yes
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+    mode: "u+rwx"
   no_log: True
 
 - name: Create posts directory
