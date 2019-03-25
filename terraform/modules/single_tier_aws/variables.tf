@@ -43,9 +43,10 @@ variable "web_private_ip" {
     description = "Internal IP address for web server"
     default = "10.0.1.10"
 }
-variable "shell_private_ip" {
+variable "shell_private_ips" {
     description = "Internal IP address for shell server"
-    default = "10.0.1.11"
+    type = "list"
+    default = ["10.0.1.11"]
 }
 
 # Instances

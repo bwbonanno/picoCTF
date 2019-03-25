@@ -69,7 +69,7 @@ module "servers" {
     web_name = "${var.web_name}"
 
     shell_instance_type = "${var.shell_instance_type}"
-    shell_private_ip = "${var.shell_private_ip}"
+    shell_private_ips = "${var.shell_private_ips}"
     shell_name = "${var.shell_name}"
 
     competition_tag = "${var.competition_tag}"

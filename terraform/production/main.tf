@@ -50,7 +50,7 @@ module "single_tier_aws" {
     #vpc_cidr = "10.0.0.0/16"
     #public_subnet_cidr = "10.0.1.0/24"
     #web_private_ip = "10.0.1.10"           # Update ansible config if changed
-    #shell_private_ip = "10.0.1.11"         # Update ansible config if changed
+    #shell_private_ips = ["10.0.1.11"]      # Update ansible config if changed
 
     ## Instances
     #web_instance_type = "t2.micro"         # For a live competition consider upgrading

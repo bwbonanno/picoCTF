@@ -12,7 +12,9 @@ variable "web_private_ip" {}
 variable "web_name" {}
 
 variable "shell_instance_type" {}
-variable "shell_private_ip" {}
+variable "shell_private_ips" {
+  type = "list"
+}
 variable "shell_name" {}
 
 variable "subnet_id" {}
@@ -67,6 +69,7 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_instance" "shell" {
+    count = "${length(var.shell_private_ips)}"
     connection {
         user = "${var.user}"
     }
@@ -78,10 +81,10 @@ resource "aws_instance" "shell" {
 
     vpc_security_group_ids = ["${var.sg_shell_id}"]
     subnet_id = "${var.subnet_id}"
-    private_ip = "${var.shell_private_ip}"
+    private_ip = "${var.shell_private_ips[count.index]}"
 
     tags {
-        Name = "${var.shell_name}"
+        Name = "${var.shell_name} ${count.index}"
         Competition = "${var.competition_tag}"
         Environment =  "${var.env_tag}"
     }
