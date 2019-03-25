@@ -7,5 +7,5 @@ exclude: ['coffee', 'node_modules']
 mode: development
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
 permalink: none
