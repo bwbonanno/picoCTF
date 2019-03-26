@@ -10,11 +10,11 @@ startup_functions:
 <script src="/js/libs/star-rating.min.js"></script>
 <link href="/css/star-rating.min.css" rel="stylesheet" type="text/css"/>
 
-<script type="text/template" id="problem-list-template">
-    <div class="problem-list panel-group">
-        <% _.each(problems, function(problem) { %>
-        <%= renderProblem({
-        problem: problem,
+<script type="text/template" id="problem-category-template">
+  <div class="problem-category">
+        <% _.each(categories, function(category) { %>
+        <%= renderProblemList({
+        problems: problems[category],
         reviewData: reviewData,
         renderProblemSubmit: renderProblemSubmit,
         sanitizeMetricName: sanitizeMetricName
@@ -23,8 +23,32 @@ startup_functions:
     </div>
 </script>
 
+<script type="text/template" id="problem-list-template">
+  <div class="panel-group" >
+      <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-target="#<%= problems[0].category.replace(/\s+/g, '') %>">
+          <h4 class="panel-title">
+              <%- problems[0].category %>
+          </h4>
+        </div>
+        <div class="panel-body collapse" id="<%= problems[0].category.replace(/\s+/g, '') %>">
+          <div class="problem-list panel-group">
+              <% _.each(problems, function(problem) { %>
+              <%= renderProblem({
+              problem: problem,
+              reviewData: reviewData,
+              renderProblemSubmit: renderProblemSubmit,
+              sanitizeMetricName: sanitizeMetricName
+              }) %>
+              <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+</script>
+
 <script type="text/template" id="problem-template">
-    <%
+  <%
     var alreadyReviewed = false;
     var review = null;
 
@@ -96,7 +120,7 @@ startup_functions:
 </script>
 
 <script type="text/template" id="problem-submit-template">
-    <p class="problem-description">
+  <p class="problem-description">
         <%= problem.description %>
     <div class="row">
         <div class="col-md-11">
@@ -133,7 +157,7 @@ startup_functions:
 </script>
 
 <script type="text/template" id="achievement-message-template">
-    <table>
+  <table>
         <tr>
             <td>
                 <img src="<%= achievement.image %>"/>
@@ -147,5 +171,5 @@ startup_functions:
 </script>
 
 <div class="container">
-    <div id="problem-list-holder"></div>
+  <div id="problem-list-holder"></div>
 </div>

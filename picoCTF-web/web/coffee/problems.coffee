@@ -1,3 +1,4 @@
+renderProblemCategory = _.template($("#problem-category-template").remove().text())
 renderProblemList = _.template($("#problem-list-template").remove().text())
 renderProblem = _.template($("#problem-template").remove().text())
 renderProblemSubmit = _.template($("#problem-submit-template").remove().text())
@@ -68,6 +69,16 @@ addProblemReview = (e) ->
         new_achievements = (x for x in data.data when !x.seen)
         constructAchievementCallbackChain new_achievements
 
+categorizeProblems = (problems) ->
+  result = {}
+  for problem in problems
+    if(result[problem.category])
+      result[problem.category].push(problem)
+    else
+      result[problem.category] = [problem]
+
+  return result
+
 loadProblems = ->
   apiCall "GET", "/api/problems"
   .done (data) ->
@@ -81,8 +92,10 @@ loadProblems = ->
         addScoreToTitle("#title")
         apiCall "GET", "/api/problems/feedback/reviewed", {}
         .done (reviewData) ->
-          $("#problem-list-holder").html renderProblemList({
-            problems: data.data,
+          problems = categorizeProblems(data.data)
+          $("#problem-list-holder").html renderProblemCategory({
+            categories: Object.keys(problems),
+            problems: problems,
             reviewData: reviewData.data,
             renderProblem: renderProblem,
             renderProblemSubmit: renderProblemSubmit,
