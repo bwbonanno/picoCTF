@@ -141,7 +141,7 @@ sed -i 's/when: not private_repo/when: False/g' ./roles/common/tasks/clone_repo.
 cat > /picoCTF/deploy_this.sh <<EOF_DEPLOY
 #!/bin/sh
 cd /picoCTF/ansible
-exec ansible-playbook --vault-id @prompt -i $(pwd)/inventories/${DEPLOY_ANSIBLE_INVENTORYNAME} --limit="${DEPLOY_ANSIBLE_LIMIT}" $@ "\$@" site.yml
+exec ansible-playbook --vault-id @prompt -i $(pwd)/inventories/${DEPLOY_ANSIBLE_INVENTORYNAME} --limit="${DEPLOY_ANSIBLE_LIMIT}" $@ "\$@" site.yml --extra-vars " $EXTRA_VARS
 EOF_DEPLOY
 chmod 755 /picoCTF/deploy_this.sh
 

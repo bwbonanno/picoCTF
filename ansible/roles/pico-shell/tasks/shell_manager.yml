@@ -60,3 +60,7 @@
   copy:
     src:  "securebashrc"
     dest: "/opt/hacksports/config/securebashrc"
+
+- name: Disable ASLR
+  shell: "echo 0 | tee /proc/sys/kernel/randomize_va_space"
+  when: disable_aslr is defined
