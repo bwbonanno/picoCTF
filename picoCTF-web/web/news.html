@@ -7,6 +7,10 @@ title: News
             <h2>
                 {{ post.title }}
             </h2>
+            {% if post.author %}
+              <h4>Author: {{ post.author }}</h4>
+            {% endif %}
+
             {{ post.excerpt }}<br>
             <a href="{{ post.url }}">Read more...</a><br><br>
         {% endfor %}
